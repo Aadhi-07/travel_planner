@@ -11,7 +11,9 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import joinNow from "@/public/join-now.svg";
 
-const Join = () => {
+import { Suspense } from "react";
+
+const JoinContent = () => {
   const { isLoaded, isSignedIn, user } = useUser();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -71,6 +73,18 @@ const Join = () => {
         </h2>
       </div>
     </div>
+  );
+};
+
+const Join = () => {
+  return (
+    <Suspense fallback={
+      <div className="w-full h-full flex flex-1 justify-center items-center">
+        <h2 className="text-foreground animate-pulse font-bold text-lg">Loading...</h2>
+      </div>
+    }>
+      <JoinContent />
+    </Suspense>
   );
 };
 
