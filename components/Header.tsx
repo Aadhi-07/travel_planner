@@ -21,40 +21,45 @@ const Header = () => {
   return (
     <header
       className={cn(
-        "w-full border-b bottom-2 border-border/40 z-50 sticky top-0",
-        "bg-background backdrop-blur supports-[backdrop-filter]:bg-background/60",
+        "w-full z-50 sticky top-0 transition-all",
         isCurrentPathHome && "sticky top-0"
       )}
+      style={{
+        backgroundColor: "rgba(255, 253, 248, 0.92)",
+        backdropFilter: "blur(12px)",
+        WebkitBackdropFilter: "blur(12px)",
+        borderBottom: "1px solid rgba(120, 90, 50, 0.12)",
+      }}
     >
       <nav className="lg:px-20 px-5 py-3 mx-auto">
         <div className="flex justify-evenly w-full">
           <div className="hidden md:flex gap-10 items-center justify-start flex-1">
             <Link href={isAuthenticated ? "/dashboard" : "/"}>
-              <div className="flex gap-1 justify-center items-center">
-                <MapPinIcon className="h-10 w-10 text-blue-500" />
-                <div className="flex flex-col leading-5 font-bold text-xl">
+              <div className="flex gap-2 justify-center items-center">
+                <MapPinIcon className="h-8 w-8 text-[#3B82F6]" />
+                <div className="flex flex-col leading-5 font-bold text-xl text-[#171717]">
                   <span>Travel</span>
                   <span>
                     Planner
-                    <span className="text-blue-500 ml-0.5">AI</span>
+                    <span className="text-[#3B82F6] ml-0.5">AI</span>
                   </span>
                 </div>
               </div>
             </Link>
           </div>
           <div className="hidden md:flex items-center flex-1 justify-center">
-            <ul className="flex gap-8 items-center text-sm">
+            <ul className="flex gap-8 items-center text-sm font-medium text-[#171717]">
               {isCurrentPathHome && (
                 <>
                   {navlinks.map((link) => (
                     <li
                       key={link.id}
-                      className="hover:underline cursor-pointer"
+                      className="hover:text-[#3B82F6] transition-colors cursor-pointer"
                     >
                       <Link href={`/#${link.id}`}>{link.text}</Link>
                     </li>
                   ))}
-                  <li className="hover:underline cursor-pointer">
+                  <li className="hover:text-[#3B82F6] transition-colors cursor-pointer">
                     <Link href="dashboard" scroll>
                       Dashboard
                     </Link>

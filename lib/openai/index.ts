@@ -59,6 +59,7 @@ export const generatebatch1 = (promptText: string) => {
 
 type OpenAIInputType = {
   userPrompt: string;
+  originPlace?: string | undefined;
   activityPreferences?: string[] | undefined;
   fromDate?: number | undefined;
   toDate?: number | undefined;
@@ -89,6 +90,8 @@ export const generatebatch3 = (inputParams: OpenAIInputType) => {
   const description = `Generate a description of a travel itinerary and top places to visit according to the following schema:
   - Itinerary:
     - An array containing details of the itinerary for the specified number of days.
+    - Day 1 morning MUST include departure from origin (${inputParams.originPlace || "origin"}), travel/transit, and arrival at destination.
+    - The final day MUST include return journey to origin (${inputParams.originPlace || "origin"}).
     - Each day's itinerary includes a title, detailed activities for morning, afternoon, evening, and night.
     - Includes food recommendations, stay options, optional activities, quick bookings, and tips for the day.
   
@@ -103,18 +106,23 @@ export const generatebatch3 = (inputParams: OpenAIInputType) => {
 export const generateFullPlan = (inputParams: OpenAIInputType) => {
   const description = `Generate a complete and comprehensive travel plan according to the full schema provided. 
   It must include about the place, best time to visit, trip highlights, weather analysis, top adventures, local cuisine, packing checklist, budget range, itinerary, and top places to visit.
+  Important: Day 1 itinerary must include departure from origin (${inputParams.originPlace || "origin"}), and the final day must include return to origin (${inputParams.originPlace || "origin"}).
   Ensure that the function response adheres to the schema provided and is in JSON format. The response should not contain anything outside of the defined schema.`;
   return callOpenAIApi(getPropmpt(inputParams), fullPlanSchema, description);
 }
 
-const getPropmpt = ({ userPrompt, activityPreferences, companion, fromDate, toDate, budgetTier }: OpenAIInputType) => {
-  let prompt = `${userPrompt}, from date-${fromDate} to date-${toDate}`;
+const getPropmpt = ({ userPrompt, originPlace, activityPreferences, companion, fromDate, toDate, budgetTier }: OpenAIInputType) => {
+  let prompt = `${userPrompt}`;
 
+  if (originPlace && originPlace.length > 0) {
+    prompt += `, starting travel from ${originPlace}`;
+  }
+  if (fromDate && toDate) {
+    prompt += `, from date-${fromDate} to date-${toDate}`;
+  }
   if (companion && companion.length > 0) prompt += `, travelling with-${companion}`;
-
   if (activityPreferences && activityPreferences.length > 0) prompt += `, activity preferences-${activityPreferences.join(",")}`;
-
-  if (budgetTier && budgetTier.length > 0) prompt += `, budget range for the trip-${budgetTier}`;
+  if (budgetTier && budgetTier.length > 0) prompt += `, budget tier-${budgetTier}`;
 
   prompt = `${prompt}, ${promptSuffix}`;
   return prompt;

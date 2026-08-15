@@ -16,6 +16,7 @@ import { ConvexError, v } from "convex/values";
 import { generatebatch1, generatebatch2, generatebatch3, generateFullPlan, generateSingleDayItinerary } from "../lib/openai";
 import { getCurrentPlanSettings } from "./planSettings";
 import { getIdentityOrThrow } from "./utils";
+import { calculateRealisticBudget } from "../lib/budgetCalculator";
 
 const cleanJsonString = (str: string) => {
   let clean = str.trim();
@@ -348,6 +349,7 @@ export const prepareFullPlan = action({
 
       const completion = await generateFullPlan({
         userPrompt: emptyPlan.userPrompt,
+        originPlace: emptyPlan.originPlace,
         activityPreferences,
         companion,
         fromDate,
@@ -366,6 +368,27 @@ export const prepareFullPlan = action({
         },
       }));
 
+      const daysCount = fromDate && toDate ? Math.max(1, Math.ceil((toDate - fromDate) / (1000 * 60 * 60 * 24)) + 1) : 2;
+
+      const computedBudget = calculateRealisticBudget({
+        originPlace: emptyPlan.originPlace,
+        destinationPlace: emptyPlan.nameoftheplace,
+        noOfDays: daysCount,
+        companion,
+        budgetTier,
+      });
+
+      const safeBudgetRange = {
+        totalEstimatedCost: computedBudget.totalEstimatedCost,
+        perPersonCost: computedBudget.perPersonCost,
+        essentials: computedBudget.essentials,
+        transport: computedBudget.transport,
+        accommodation: computedBudget.accommodation,
+        food: computedBudget.food,
+        insurance: computedBudget.insurance,
+        contingency: computedBudget.contingency,
+      };
+
       await ctx.runMutation(internal.plan.updateFullPlan, {
         planId: emptyPlan._id,
         abouttheplace: modelName.abouttheplace || "",
@@ -375,7 +398,8 @@ export const prepareFullPlan = action({
         adventuresactivitiestodo: modelName.adventuresactivitiestodo || [],
         localcuisinerecommendations: modelName.localcuisinerecommendations || [],
         packingchecklist: modelName.packingchecklist || [],
-        budgetRange: modelName.budgetRange,
+        budgetRange: safeBudgetRange,
+        transportDetails: computedBudget.transportDetails,
         topplacestovisit: safeTopPlaces,
         itinerary: modelName.itinerary || [],
       });
@@ -730,12 +754,22 @@ export const updateFullPlan = internalMutation({
     budgetRange: v.optional(
       v.object({
         totalEstimatedCost: v.string(),
+        perPersonCost: v.optional(v.string()),
         essentials: v.string(),
         transport: v.string(),
         accommodation: v.string(),
         food: v.string(),
         insurance: v.string(),
         contingency: v.string(),
+      })
+    ),
+    transportDetails: v.optional(
+      v.object({
+        origin: v.string(),
+        destination: v.string(),
+        recommendedMode: v.string(),
+        estimatedDuration: v.string(),
+        estimatedCostRange: v.string(),
       })
     ),
     topplacestovisit: v.array(
@@ -804,6 +838,7 @@ export const updateFullPlan = internalMutation({
       packingchecklist: args.packingchecklist,
       localcuisinerecommendations: args.localcuisinerecommendations,
       budgetRange: args.budgetRange,
+      transportDetails: args.transportDetails,
       topplacestovisit: args.topplacestovisit,
       itinerary: args.itinerary,
       contentGenerationState: {
@@ -976,6 +1011,7 @@ export const addDayInItinerary = mutation({
 
 export const createEmptyPlan = mutation({
   args: {
+    originPlace: v.optional(v.string()),
     placeName: v.string(),
     noOfDays: v.string(),
     activityPreferences: v.array(v.string()),
@@ -990,13 +1026,19 @@ export const createEmptyPlan = mutation({
 
     const state = !args.isGeneratedUsingAI;
 
+    const originStr = args.originPlace?.trim() || "";
+    const promptText = originStr
+      ? `${args.noOfDays} days trip from ${originStr} to ${args.placeName}`
+      : `${args.noOfDays} days trip to ${args.placeName}`;
+
     const newPlan = await ctx.db.insert("plan", {
+      originPlace: originStr || undefined,
       nameoftheplace: args.placeName,
       abouttheplace: "",
       adventuresactivitiestodo: [],
       topplacestovisit: [],
       userId: identity.subject,
-      userPrompt: `${args.noOfDays} days trip to ${args.placeName}`,
+      userPrompt: promptText,
       besttimetovisit: "",
       itinerary: [],
       storageId: null,

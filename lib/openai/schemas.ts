@@ -51,7 +51,7 @@ export const batch2Schema = {
         budgetRange: {
             type: "object",
             properties: {
-                totalEstimatedCost: { type: "string", description: "Total estimated cost range in INR e.g. ₹ 44,000—₹ 78,000" },
+                totalEstimatedCost: { type: "string", description: "Total estimated cost range in INR based on duration and travelers" },
                 essentials: { type: "string", description: "Essentials cost range" },
                 transport: { type: "string", description: "Transport cost range" },
                 accommodation: { type: "string", description: "Accommodation cost range" },

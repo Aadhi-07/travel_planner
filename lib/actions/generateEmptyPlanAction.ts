@@ -8,10 +8,11 @@ import { differenceInDays } from "date-fns";
 
 export async function generateEmptyPlanAction(formData: formSchemaType) {
     const token = await getAuthToken();
-    const { placeName, activityPreferences, datesOfTravel, companion, budgetTier } = formData;
+    const { originPlace, placeName, activityPreferences, datesOfTravel, companion, budgetTier } = formData;
 
     const planId = await fetchMutation(api.plan.createEmptyPlan,
         {
+            originPlace,
             placeName,
             noOfDays: (
               differenceInDays(datesOfTravel.to, datesOfTravel.from) + 1

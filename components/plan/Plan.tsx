@@ -17,12 +17,15 @@ import {
 
 import { usePlanContext } from "../../contexts/PlanContextProvider";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Send, Users, X, Printer } from "lucide-react";
+import { Send, Users, X, Printer, Calendar } from "lucide-react";
 import Weather from "@/components/sections/Weather";
 import PlanMetaData from "@/components/sections/PlanMetaData";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import Link from "next/link";
+
+import ConvinceFriendsCard from "@/components/convince-friends/ConvinceFriendsCard";
+import { downloadICalFile } from "@/lib/icalGenerator";
 
 type PlanProps = {
   planId: string;
@@ -103,6 +106,11 @@ const Plan = ({ planId }: PlanProps) => {
         isPublished={plan?.isPublished ?? false}
         isLoading={isLoading}
       />
+      
+      {!isLoading && plan && (
+        <ConvinceFriendsCard plan={plan} />
+      )}
+
       <ImageSection
         userPrompt={plan?.userPrompt}
         placeName={plan?.nameoftheplace}
@@ -146,6 +154,7 @@ const Plan = ({ planId }: PlanProps) => {
       />
       <BudgetRange
         data={plan?.budgetRange}
+        plan={plan}
         isLoading={isLoading || !plan?.contentGenerationState.budgetRange}
       />
       <LocalCuisineRecommendations
@@ -169,13 +178,22 @@ const Plan = ({ planId }: PlanProps) => {
         allowEdit={true}
       />
       {!isLoading && (
-        <Button
-          className="fixed bottom-10 right-10 z-50 rounded-full w-14 h-14 shadow-lg print:hidden"
-          onClick={() => window.print()}
-          title="Export to PDF"
-        >
-          <Printer className="w-6 h-6" />
-        </Button>
+        <div className="fixed bottom-10 right-10 z-50 flex gap-3 print:hidden">
+          <Button
+            className="rounded-full w-14 h-14 shadow-xl bg-amber-600 hover:bg-amber-500 text-white"
+            onClick={() => downloadICalFile(plan)}
+            title="Add to Calendar / Export iCal"
+          >
+            <Calendar className="w-6 h-6" />
+          </Button>
+          <Button
+            className="rounded-full w-14 h-14 shadow-xl bg-blue-600 hover:bg-blue-500 text-white"
+            onClick={() => window.print()}
+            title="Export to PDF"
+          >
+            <Printer className="w-6 h-6" />
+          </Button>
+        </div>
       )}
     </section>
   );

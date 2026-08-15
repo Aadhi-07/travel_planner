@@ -17,7 +17,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Loader2, MessageSquarePlus, Wand2 } from "lucide-react";
+import { Loader2, MessageSquarePlus, Wand2, MapPin, ArrowDown } from "lucide-react";
 import { generatePlanAction } from "@/lib/actions/generateplanAction";
 import PlacesAutoComplete from "@/components/PlacesAutoComplete";
 
@@ -45,16 +45,15 @@ const NewPlanForm = ({
   const { isSignedIn } = useAuth();
   if (!isSignedIn) return null;
 
-  const [selectedFromList, setSelectedFromList] = useState(false);
-
   const { toast } = useToast();
 
   const form = useForm<formSchemaType>({
     resolver: zodResolver(formSchema),
     defaultValues: {
+      originPlace: "",
+      placeName: "",
       activityPreferences: [],
       companion: undefined,
-      placeName: "",
       datesOfTravel: {
         from: undefined as unknown as Date,
         to: undefined as unknown as Date,
@@ -62,15 +61,26 @@ const NewPlanForm = ({
     },
   });
 
-  const isPlaceValid = () => {
-    if (!selectedFromList) {
-      form.setError("placeName", {
-        message: "Place should be selected from the list",
+  const originVal = form.watch("originPlace");
+  const destVal = form.watch("placeName");
+
+  const validateLocations = () => {
+    let isValid = true;
+    if (!form.getValues("originPlace")?.trim()) {
+      form.setError("originPlace", {
+        message: "Please enter your starting location.",
         type: "custom",
       });
-      return false;
+      isValid = false;
     }
-    return true;
+    if (!form.getValues("placeName")?.trim()) {
+      form.setError("placeName", {
+        message: "Please enter your destination.",
+        type: "custom",
+      });
+      isValid = false;
+    }
+    return isValid;
   };
 
   const handleActionSuccess = (planId: string | null, type: "empty" | "ai") => {
@@ -99,36 +109,79 @@ const NewPlanForm = ({
   });
 
   async function onSubmitEmptyPlan(values: z.infer<typeof formSchema>) {
-    if (!isPlaceValid()) return;
+    if (!validateLocations()) return;
     executeEmptyPlan(values);
   }
 
   async function onSubmitAIPlan(values: z.infer<typeof formSchema>) {
-    if (!isPlaceValid()) return;
+    if (!validateLocations()) return;
     executeAIPlan(values);
   }
 
   return (
     <Form {...form}>
       <form className="space-y-4" onSubmit={form.handleSubmit(onSubmitAIPlan)}>
-        <FormField
-          control={form.control}
-          name="placeName"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Search for your destination city</FormLabel>
-              <FormControl>
-                <PlacesAutoComplete
-                  field={field}
-                  form={form}
-                  selectedFromList={selectedFromList}
-                  setSelectedFromList={setSelectedFromList}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+        {/* Route Direction Visual Card */}
+        <div className="bg-slate-900/60 border border-slate-800 rounded-xl p-3.5 space-y-3">
+          {/* FROM FIELD */}
+          <FormField
+            control={form.control}
+            name="originPlace"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="text-xs font-semibold text-slate-300 flex items-center gap-1.5 uppercase tracking-wider">
+                  <MapPin className="w-3.5 h-3.5 text-orange-400" />
+                  From (Starting Location)
+                </FormLabel>
+                <FormControl>
+                  <PlacesAutoComplete
+                    field={field}
+                    form={form}
+                    fieldName="originPlace"
+                    placeholder="Where are you travelling from? (e.g. Chennai)"
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          {/* Visual Route Separator */}
+          <div className="flex items-center justify-center text-xs text-slate-400 gap-2 py-0.5">
+            <div className="h-px bg-slate-800 flex-1"></div>
+            <span className="flex items-center gap-1 font-sans text-[11px] bg-slate-800/80 px-2 py-0.5 rounded-full text-amber-300">
+              <span>{originVal || "From"}</span>
+              <ArrowDown className="w-3 h-3 text-orange-400" />
+              <span>{destVal || "To"}</span>
+            </span>
+            <div className="h-px bg-slate-800 flex-1"></div>
+          </div>
+
+          {/* TO FIELD */}
+          <FormField
+            control={form.control}
+            name="placeName"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="text-xs font-semibold text-slate-300 flex items-center gap-1.5 uppercase tracking-wider">
+                  <MapPin className="w-3.5 h-3.5 text-blue-400" />
+                  To (Destination)
+                </FormLabel>
+                <FormControl>
+                  <PlacesAutoComplete
+                    field={field}
+                    form={form}
+                    fieldName="placeName"
+                    placeholder="Where do you want to go? (e.g. Ooty)"
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+
+        {/* DATES OF TRAVEL */}
         <FormField
           control={form.control}
           name="datesOfTravel"
@@ -144,6 +197,8 @@ const NewPlanForm = ({
             </FormItem>
           )}
         />
+
+        {/* ACTIVITY PREFERENCES */}
         <FormField
           control={form.control}
           name="activityPreferences"
@@ -151,7 +206,7 @@ const NewPlanForm = ({
             <FormItem>
               <FormLabel>
                 Select the kind of activities you want to do
-                <span className="font-medium ml-1">(Optional)</span>
+                <span className="font-medium ml-1 text-muted-foreground text-xs">(Optional)</span>
               </FormLabel>
               <FormControl>
                 <ActivityPreferences
@@ -163,6 +218,8 @@ const NewPlanForm = ({
             </FormItem>
           )}
         />
+
+        {/* COMPANION */}
         <FormField
           control={form.control}
           name="companion"
@@ -170,7 +227,7 @@ const NewPlanForm = ({
             <FormItem>
               <FormLabel>
                 Who are you travelling with
-                <span className="font-medium ml-1">(Optional)</span>
+                <span className="font-medium ml-1 text-muted-foreground text-xs">(Optional)</span>
               </FormLabel>
               <FormControl>
                 <CompanionControl
@@ -182,6 +239,8 @@ const NewPlanForm = ({
             </FormItem>
           )}
         />
+
+        {/* BUDGET TIER */}
         <FormField
           control={form.control}
           name="budgetTier"
@@ -189,7 +248,7 @@ const NewPlanForm = ({
             <FormItem>
               <FormLabel>
                 Budget Tier
-                <span className="font-medium ml-1">(Optional)</span>
+                <span className="font-medium ml-1 text-muted-foreground text-xs">(Optional)</span>
               </FormLabel>
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
@@ -207,16 +266,18 @@ const NewPlanForm = ({
             </FormItem>
           )}
         />
-        <div className="w-full flex justify-between gap-1">
+
+        {/* SUBMIT BUTTONS */}
+        <div className="w-full flex justify-between gap-2 pt-2">
           <Button
             onClick={() => form.handleSubmit(onSubmitEmptyPlan)()}
             aria-label="generate plan"
             aria-busy={pendingEmptyPlan}
             type="button"
             disabled={
-              pendingEmptyPlan || pendingAIPlan || !form.formState.isValid
+              pendingEmptyPlan || pendingAIPlan
             }
-            className={`bg-blue-500 text-white hover:bg-blue-600 w-full ${pendingAIPlan ? 'opacity-50' : ''}`}
+            className={`bg-blue-600 text-white hover:bg-blue-700 w-full ${pendingAIPlan ? 'opacity-50' : ''}`}
           >
             {pendingEmptyPlan ? (
               <div className="flex gap-1 justify-center items-center">
@@ -226,7 +287,7 @@ const NewPlanForm = ({
             ) : (
               <div className="flex gap-1 justify-center items-center">
                 <MessageSquarePlus className="h-4 w-4" />
-                <span>Create Your Plan</span>
+                <span>Create Custom Plan</span>
               </div>
             )}
           </Button>
@@ -236,9 +297,9 @@ const NewPlanForm = ({
             aria-busy={pendingAIPlan}
             type="submit"
             disabled={
-              pendingAIPlan || pendingEmptyPlan || !form.formState.isValid
+              pendingAIPlan || pendingEmptyPlan
             }
-            className={`bg-indigo-500 text-white hover:bg-indigo-600 w-full group ${pendingEmptyPlan ? 'opacity-50' : ''}`}
+            className={`bg-indigo-600 text-white hover:bg-indigo-700 w-full group ${pendingEmptyPlan ? 'opacity-50' : ''}`}
           >
             {pendingAIPlan ? (
               <div className="flex gap-1 justify-center items-center">
@@ -246,7 +307,7 @@ const NewPlanForm = ({
                 <span>Generating AI Plan...</span>
               </div>
             ) : (
-              <div className="flex gap-1 justify-center items-center ">
+              <div className="flex gap-1 justify-center items-center">
                 <Wand2 className="h-4 w-4 group-hover:animate-pulse" />
                 <span>Generate AI Plan</span>
               </div>

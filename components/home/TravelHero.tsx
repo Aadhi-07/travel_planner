@@ -380,14 +380,13 @@ const TravelHero = () => {
           fill="#3f3d56"
         />
         <foreignObject x="420" y="120" width="250" height="220">
-          <div className="rounded-lg bg-blue-500/50" style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", width: "100%", height: "100%" }}>
-            <h1 className="text-2xl md:text-4xl font-semibold text-center tracking-wide leading-tight">
-
-              Travel Planner <span className="text-white">AI</span> is now
+          <div className="rounded-xl bg-[#3B82F6] text-white shadow-lg p-4" style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", width: "100%", height: "100%" }}>
+            <h1 className="text-2xl md:text-3xl font-bold text-center tracking-tight leading-snug">
+              Travel Planner <span className="text-amber-200">AI</span> is now
               <br />
-              <SparklesText sparklesCount={10} className="w-full text-white"
+              <SparklesText sparklesCount={10} className="w-full text-white font-extrabold"
                 colors={{
-                  first: "#000000",
+                  first: "#3B82F6",
                   second: "#ffffff",
                 }}
               >

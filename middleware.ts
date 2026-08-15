@@ -4,7 +4,7 @@ import { authMiddleware } from "@clerk/nextjs";
 // Please edit this to allow other routes to be public as needed.
 // See https://clerk.com/docs/references/nextjs/auth-middleware for more information about configuring your Middleware
 export default authMiddleware({
-  publicRoutes: ["/", "/plans/:planId/community-plan(.*)", "/community-plans", "/sign-in(.*)", "/sign-up(.*)"],
+  publicRoutes: ["/", "/plans/:planId/community-plan(.*)", "/plans/:planId/invite(.*)", "/community-plans", "/sign-in(.*)", "/sign-up(.*)", "/api/convince-friends(.*)"],
   signInUrl: "/sign-in",
 });
 

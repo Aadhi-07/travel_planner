@@ -5,6 +5,7 @@ export default defineSchema({
   plan: defineTable({
     isGeneratedUsingAI: v.boolean(),
     storageId: v.union(v.id("_storage"), v.null()),
+    originPlace: v.optional(v.string()),
     nameoftheplace: v.string(),
     userPrompt: v.string(),
     abouttheplace: v.string(),
@@ -18,12 +19,22 @@ export default defineSchema({
     budgetRange: v.optional(
       v.object({
         totalEstimatedCost: v.string(),
+        perPersonCost: v.optional(v.string()),
         essentials: v.string(),
         transport: v.string(),
         accommodation: v.string(),
         food: v.string(),
         insurance: v.string(),
         contingency: v.string(),
+      })
+    ),
+    transportDetails: v.optional(
+      v.object({
+        origin: v.string(),
+        destination: v.string(),
+        recommendedMode: v.string(),
+        estimatedDuration: v.string(),
+        estimatedCostRange: v.string(),
       })
     ),
     adventuresactivitiestodo: v.array(v.string()),

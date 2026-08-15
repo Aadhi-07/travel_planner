@@ -63,136 +63,146 @@ export default function Home() {
   const arcPath = "M 120 400 A 380 380 0 0 1 880 400";
 
   return (
-    <motion.section
-      className={`flex flex-col md:flex-row w-full h-screen gap-5 md:gap-1 transition-all duration-700 ${showSecond ? 'md:justify-between' : 'md:justify-center'
-        }`}
-      layout
-    >
-      <motion.article
-        layout
-        className={cn(`relative flex flex-col items-center justify-center bg-gradient-to-br
-          dark:from-[#181A20] dark:via-[#101114] dark:to-[#181A20] overflow-hidden`, {
-          'md:w-[100vw]': !showSecond,
-          'md:w-[75vw]': showSecond,
-        })}
-        // {`relative flex flex-col items-center justify-center bg-gradient-to-br
-        //  dark:from-[#181A20] dark:via-[#101114] dark:to-[#181A20] overflow-hidden
-        //  ${showSecond ? 'w-[75vw]' : 'w-[100vw]'}`}
-        style={{
-          transition: "width 0.7s cubic-bezier(0.4,0,0.2,1)",
-        }}
-      >
+    <div className="relative min-h-screen overflow-hidden">
+      {/* Background video */}
+      <video
+        autoPlay
+        muted
+        loop
+        playsInline
+        src="https://pollen-batch-41236914.figma.site/_components/v2/f0ee2dae7671c170c34f12e31c4cb41418976c98/769c564298c132f7919405cd9f17c1b1231f341d.769c5642.mp4"
+        className="absolute inset-0 w-full h-full object-cover z-0 pointer-events-none"
+      />
 
-        {/* Arc and logos */}
-        <svg
-          viewBox="0 0 1000 500"
-          className="pointer-events-none absolute top-0 left-0 w-full h-full"
+      {/* EXISTING CONTENT — DO NOT CHANGE */}
+      <div className="relative z-10">
+        <motion.section
+          className={`flex flex-col md:flex-row w-full h-screen gap-5 md:gap-1 transition-all duration-700 ${showSecond ? 'md:justify-between' : 'md:justify-center'
+            }`}
+          layout
         >
-          {/* Dotted Arc - fade in with plane */}
-          <motion.path
-            d={arcPath}
-            stroke="#444"
-            strokeWidth="2"
-            fill="none"
-            strokeDasharray="8 10"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: step >= 1 ? 1 : 0 }}
-            transition={{ duration: 0.5 }}
-          />
-          {/* Old Logo (left) - fade in */}
-          <motion.image
-            href="/logo.png"
-            x="45"
-            y="350"
-            width="200"
-            height="200"
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: step >= 0 ? 1 : 0, scale: step >= 0 ? 1 : 0.8 }}
-            transition={{ duration: 0.6 }}
-          />
-          {/* New Logo (right) - fade in after plane animation */}
-          <motion.image
-            href="/rutugo-logo.png"
-            x="775"
-            y="350"
-            width="200"
-            height="200"
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: step >= 2 ? 1 : 0, scale: step >= 2 ? 1 : 0.8 }}
-            transition={{ duration: 0.6 }}
-          />
-          {/* Animated Plane Icon moving along the arc - only show during step 1 and after */}
-          {step >= 1 && (
-            <motion.g
-              style={{
-                translateX: cx,
-                translateY: cy,
-                rotate: angle,
-              }}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.3 }}
-            >
-              <Plane className="text-transparent fill-blue-500" height={24} width={24} />
-            </motion.g>
-          )}
-        </svg>
-
-        {/* Main Content below the arc */}
-
-        <motion.div
-          className="h-2/3 md:w-2/3 w-full relative z-10 flex flex-col items-center justify-center"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: step >= 3 ? 1 : 0, y: step >= 3 ? 0 : 30 }}
-          transition={{ duration: 0.7 }}
-        >
-          <div className="max-h-[70vh] max-w-[70vw] w-full h-full flex items-center justify-center mx-auto">
-            <TravelHero />
-          </div>
-        </motion.div>
-        <motion.div
-          className="hidden md:flex absolute bottom-0 z-10 w-full h-full px-6 py-16 flex-col items-center justify-end -mt-10 p-5"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: step >= 3 ? 1 : 0, y: step >= 3 ? 0 : 30 }}
-          transition={{ duration: 0.7 }}
-        >
-          <Link href="/dashboard">
-            <InteractiveHoverButton className="border-2 border-blue-500 shadow-xl">
-              Get Started
-            </InteractiveHoverButton>
-          </Link>
-        </motion.div>
-      </motion.article>
-      <motion.article className="flex justify-center items-center">
-        <motion.div
-          className="md:hidden flex "
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: step >= 3 ? 1 : 0, y: step >= 3 ? 0 : 30 }}
-          transition={{ duration: 0.7 }}
-        >
-          <Link href="/dashboard">
-            <InteractiveHoverButton className="border-2 border-blue-500 shadow-xl">
-              Get Started
-            </InteractiveHoverButton>
-          </Link>
-        </motion.div>
-      </motion.article>
-      <AnimatePresence>
-        {showSecond && (
           <motion.article
             layout
-            initial={{ opacity: 0, x: 100 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: 100 }}
-            transition={{ duration: 0.7 }}
-            className="flex justify-center items-center md:w-[25vw] w-full h-full flex-col"
+            className={cn(`relative flex flex-col items-center justify-center overflow-hidden`, {
+              'md:w-[100vw]': !showSecond,
+              'md:w-[75vw]': showSecond,
+            })}
+            style={{
+              transition: "width 0.7s cubic-bezier(0.4,0,0.2,1)",
+            }}
           >
-            <h2 className="text-2xl font-bold">What's new in Rutugo?</h2>
-            <AnimatedListDemo />
-          </motion.article>
-        )}
-      </AnimatePresence>
-    </motion.section>
 
+            {/* Arc and logos */}
+            <svg
+              viewBox="0 0 1000 500"
+              className="pointer-events-none absolute top-0 left-0 w-full h-full"
+            >
+              {/* Dotted Arc - fade in with plane */}
+              <motion.path
+                d={arcPath}
+                stroke="#444"
+                strokeWidth="2"
+                fill="none"
+                strokeDasharray="8 10"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: step >= 1 ? 1 : 0 }}
+                transition={{ duration: 0.5 }}
+              />
+              {/* Old Logo (left) - fade in */}
+              <motion.image
+                href="/logo.png"
+                x="45"
+                y="350"
+                width="200"
+                height="200"
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: step >= 0 ? 1 : 0, scale: step >= 0 ? 1 : 0.8 }}
+                transition={{ duration: 0.6 }}
+              />
+              {/* New Logo (right) - fade in after plane animation */}
+              <motion.image
+                href="/rutugo-logo.png"
+                x="775"
+                y="350"
+                width="200"
+                height="200"
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: step >= 2 ? 1 : 0, scale: step >= 2 ? 1 : 0.8 }}
+                transition={{ duration: 0.6 }}
+              />
+              {/* Animated Plane Icon moving along the arc - only show during step 1 and after */}
+              {step >= 1 && (
+                <motion.g
+                  style={{
+                    translateX: cx,
+                    translateY: cy,
+                    rotate: angle,
+                  }}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <Plane className="text-transparent fill-blue-500" height={24} width={24} />
+                </motion.g>
+              )}
+            </svg>
+
+            {/* Main Content below the arc */}
+
+            <motion.div
+              className="h-2/3 md:w-2/3 w-full relative z-10 flex flex-col items-center justify-center"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: step >= 3 ? 1 : 0, y: step >= 3 ? 0 : 30 }}
+              transition={{ duration: 0.7 }}
+            >
+              <div className="max-h-[70vh] max-w-[70vw] w-full h-full flex items-center justify-center mx-auto">
+                <TravelHero />
+              </div>
+            </motion.div>
+            <motion.div
+              className="hidden md:flex absolute bottom-0 z-10 w-full h-full px-6 py-16 flex-col items-center justify-end -mt-10 p-5"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: step >= 3 ? 1 : 0, y: step >= 3 ? 0 : 30 }}
+              transition={{ duration: 0.7 }}
+            >
+              <Link href="/dashboard">
+                <InteractiveHoverButton className="border-2 border-blue-500 shadow-xl">
+                  Get Started
+                </InteractiveHoverButton>
+              </Link>
+            </motion.div>
+          </motion.article>
+          <motion.article className="flex justify-center items-center">
+            <motion.div
+              className="md:hidden flex "
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: step >= 3 ? 1 : 0, y: step >= 3 ? 0 : 30 }}
+              transition={{ duration: 0.7 }}
+            >
+              <Link href="/dashboard">
+                <InteractiveHoverButton className="border-2 border-blue-500 shadow-xl">
+                  Get Started
+                </InteractiveHoverButton>
+              </Link>
+            </motion.div>
+          </motion.article>
+          <AnimatePresence>
+            {showSecond && (
+              <motion.article
+                layout
+                initial={{ opacity: 0, x: 100 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 100 }}
+                transition={{ duration: 0.7 }}
+                className="flex justify-center items-center md:w-[25vw] w-full h-full flex-col"
+              >
+                <h2 className="text-2xl font-semibold text-[#171717] mb-2">What's new in Rutugo?</h2>
+                <AnimatedListDemo />
+              </motion.article>
+            )}
+          </AnimatePresence>
+        </motion.section>
+      </div>
+    </div>
   );
 }
