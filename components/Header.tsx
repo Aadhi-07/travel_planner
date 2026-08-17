@@ -13,9 +13,16 @@ import { Compass } from "lucide-react";
 import FeedbackSheet from "@/components/common/FeedbackSheet";
 
 
+import { useEffect, useState } from "react";
+
 const Header = () => {
   const { isCurrentPathDashboard, isCurrentPathHome, isAuthenticated } =
     useAuth();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   return (
     <header
@@ -71,19 +78,23 @@ const Header = () => {
             />
           </div>
           <div className="flex gap-3 justify-end items-center flex-1">
-            <SignedOut>
-              <SignInButton mode="redirect" redirectUrl="/dashboard" />
-            </SignedOut>
-            <SignedIn>
-              <div className="flex justify-center items-center gap-3">
-                {!isCurrentPathDashboard && !isCurrentPathHome && (
-                  <PlanComboBox />
-                )}
+            {mounted && (
+              <>
+                <SignedOut>
+                  <SignInButton mode="redirect" redirectUrl="/dashboard" />
+                </SignedOut>
+                <SignedIn>
+                  <div className="flex justify-center items-center gap-3">
+                    {!isCurrentPathDashboard && !isCurrentPathHome && (
+                      <PlanComboBox />
+                    )}
 
-                <FeedbackSheet />
-                <UserButton afterSignOutUrl="/" />
-              </div>
-            </SignedIn>
+                    <FeedbackSheet />
+                    <UserButton afterSignOutUrl="/" />
+                  </div>
+                </SignedIn>
+              </>
+            )}
           </div>
         </div>
       </nav>

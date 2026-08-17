@@ -9,7 +9,15 @@ import Logo from "@/components/common/Logo";
 import Link from "next/link";
 import MobileMenu from "@/app/community-plans/MobileMenu";
 
+import { useEffect, useState } from "react";
+
 const Header = () => {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   return (
     <header
       className={cn(
@@ -28,23 +36,29 @@ const Header = () => {
             <li className="hover:underline hover:underline-offset-4 cursor-pointer">
               <Link href="/">Home</Link>
             </li>
-            <SignedIn>
-              <li className="hover:underline hover:underline-offset-4 cursor-pointer">
-                <Link href="/dashboard">Dashboard</Link>
-              </li>
-            </SignedIn>
+            {mounted && (
+              <SignedIn>
+                <li className="hover:underline hover:underline-offset-4 cursor-pointer">
+                  <Link href="/dashboard">Dashboard</Link>
+                </li>
+              </SignedIn>
+            )}
           </ul>
           <div className="flex gap-3 justify-end items-center flex-1">
-            <SignedOut>
-              <SignInButton mode="redirect" redirectUrl="/dashboard" />
-            </SignedOut>
+            {mounted && (
+              <>
+                <SignedOut>
+                  <SignInButton mode="redirect" redirectUrl="/dashboard" />
+                </SignedOut>
 
-            <SignedIn>
-              <div className="flex justify-center items-center gap-3">
-                <FeedbackSheet />
-                <UserButton afterSignOutUrl="/" />
-              </div>
-            </SignedIn>
+                <SignedIn>
+                  <div className="flex justify-center items-center gap-3">
+                    <FeedbackSheet />
+                    <UserButton afterSignOutUrl="/" />
+                  </div>
+                </SignedIn>
+              </>
+            )}
           </div>
         </div>
       </nav>

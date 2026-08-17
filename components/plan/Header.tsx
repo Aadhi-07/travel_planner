@@ -11,7 +11,15 @@ import MobileMenu from "@/components/plan/MobileMenu";
 
 import Link from "next/link";
 
+import { useEffect, useState } from "react";
+
 const Header = ({ isPublic }: { isPublic: boolean }) => {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   return (
     <header
       className={cn(
@@ -24,20 +32,22 @@ const Header = ({ isPublic }: { isPublic: boolean }) => {
           <div className="flex gap-8 justify-center items-center">
             <Logo />
             <ul className="gap-4 text-sm hidden lg:flex items-center justify-center">
-              <SignedIn>
-                <li
-                  className="hover:underline hover:underline-offset-4 transition-all duration-300 cursor-pointer 
-          text-foreground"
-                >
-                  <Link
-                    href="/dashboard"
-                    className="hidden md:block hover:underline cursor-pointer hover:underline-offset-4 text-foreground text-sm"
-                    scroll
+              {mounted && (
+                <SignedIn>
+                  <li
+                    className="hover:underline hover:underline-offset-4 transition-all duration-300 cursor-pointer 
+            text-foreground"
                   >
-                    Dashboard
-                  </Link>
-                </li>
-              </SignedIn>
+                    <Link
+                      href="/dashboard"
+                      className="hidden md:block hover:underline cursor-pointer hover:underline-offset-4 text-foreground text-sm"
+                      scroll
+                    >
+                      Dashboard
+                    </Link>
+                  </li>
+                </SignedIn>
+              )}
               <li
                 className="hover:underline hover:underline-offset-4 transition-all duration-300 cursor-pointer 
           text-foreground"
@@ -58,17 +68,21 @@ const Header = ({ isPublic }: { isPublic: boolean }) => {
           </div>
 
           <div className="flex gap-3 justify-end items-center flex-1">
-            <SignedOut>
-              <SignInButton mode="redirect" redirectUrl="/dashboard" />
-            </SignedOut>
-            <SignedIn>
-              <div className="flex justify-center items-center gap-3">
-                <PlanComboBox />
+            {mounted && (
+              <>
+                <SignedOut>
+                  <SignInButton mode="redirect" redirectUrl="/dashboard" />
+                </SignedOut>
+                <SignedIn>
+                  <div className="flex justify-center items-center gap-3">
+                    <PlanComboBox />
 
-                <FeedbackSheet />
-                <UserButton afterSignOutUrl="/" />
-              </div>
-            </SignedIn>
+                    <FeedbackSheet />
+                    <UserButton afterSignOutUrl="/" />
+                  </div>
+                </SignedIn>
+              </>
+            )}
           </div>
         </div>
       </nav>

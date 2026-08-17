@@ -34,8 +34,8 @@
 
     --radius: 0.5rem;
 
-    --brand-accent: #c86d51;
-    --brand-accent-hover: #b55c41;
+    --brand-accent: 14 53% 55%;
+    --brand-accent-hover: 14 47% 48%;
 
     --sidebar-background: 0 0% 100%;
 
@@ -103,7 +103,6 @@
 }
 
 html {
-  --scroll-behavior: smooth !important;
   scroll-behavior: smooth !important;
 }
 

@@ -123,7 +123,7 @@ export default function Home() {
             >
               <Link href="/dashboard">
                 <InteractiveHoverButton className="border-2 border-[#b55c41] shadow-2xl shadow-[#c86d51]/30">
-                  Get Started with Journo
+                  Get Started
                 </InteractiveHoverButton>
               </Link>
             </motion.div>

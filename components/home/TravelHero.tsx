@@ -387,7 +387,7 @@ const TravelHero = () => {
                 Journo
               </SparklesText>
             </h1>
-            <p className="text-xs text-[#6e5d50] text-center mt-2 font-medium">Smart, personalized itineraries</p>
+            <p className="text-xs text-[#6e5d50] text-center mt-2 font-medium"></p>
           </div>
         </foreignObject>
 

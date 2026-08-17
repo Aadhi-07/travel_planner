@@ -9,7 +9,15 @@ import MobileMenu from "@/components/dashboard/MobileMenu";
 
 import Link from "next/link";
 
+import { useEffect, useState } from "react";
+
 const Header = () => {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   return (
     <header
       className={cn(
@@ -24,23 +32,27 @@ const Header = () => {
             <MobileMenu />
           </div>
           <div className="flex gap-3 justify-end items-center flex-1">
-            <SignedOut>
-              <SignInButton mode="redirect" redirectUrl="/dashboard" />
-            </SignedOut>
-            <SignedIn>
-              <div className="flex justify-center items-center gap-3">
-                <Link
-                  href="community-plans"
-                  className="whitespace-nowrap hidden md:block hover:underline cursor-pointer hover:underline-offset-4 text-foreground text-sm font-medium"
-                  scroll
-                >
-                  Community Plans
-                </Link>
+            {mounted && (
+              <>
+                <SignedOut>
+                  <SignInButton mode="redirect" redirectUrl="/dashboard" />
+                </SignedOut>
+                <SignedIn>
+                  <div className="flex justify-center items-center gap-3">
+                    <Link
+                      href="community-plans"
+                      className="whitespace-nowrap hidden md:block hover:underline cursor-pointer hover:underline-offset-4 text-foreground text-sm font-medium"
+                      scroll
+                    >
+                      Community Plans
+                    </Link>
 
-                <FeedbackSheet />
-                <UserButton afterSignOutUrl="/" />
-              </div>
-            </SignedIn>
+                    <FeedbackSheet />
+                    <UserButton afterSignOutUrl="/" />
+                  </div>
+                </SignedIn>
+              </>
+            )}
           </div>
         </div>
       </nav>

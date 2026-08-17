@@ -20,8 +20,8 @@ const config = {
     extend: {
       colors: {
         brand: {
-          DEFAULT: "#c86d51",
-          hover: "#b55c41",
+          DEFAULT: "hsl(var(--brand-accent))",
+          hover: "hsl(var(--brand-accent-hover))",
           amber: "#d97724",
           sepia: "#4a3b32",
           ink: "#36271c",
