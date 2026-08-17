@@ -2,9 +2,7 @@
 
 import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 
-import { Loading } from "@/components/shared/Loading";
 import { cn } from "@/lib/utils";
-import { ThemeDropdown } from "@/components/ThemeDropdown";
 import FeedbackSheet from "@/components/common/FeedbackSheet";
 import Logo from "@/components/common/Logo";
 import MobileMenu from "@/components/dashboard/MobileMenu";
@@ -25,23 +23,21 @@ const Header = () => {
           <div className="md:hidden flex gap-6 flex-1">
             <MobileMenu />
           </div>
-          <div className="flex gap-4 justify-end items-center flex-1">
+          <div className="flex gap-3 justify-end items-center flex-1">
             <SignedOut>
-              <ThemeDropdown />
               <SignInButton mode="redirect" redirectUrl="/dashboard" />
             </SignedOut>
             <SignedIn>
-              <div className="flex justify-center items-center gap-2">
+              <div className="flex justify-center items-center gap-3">
                 <Link
                   href="community-plans"
-                  className="whitespace-nowrap hidden md:block hover:underline cursor-pointer hover:underline-offset-4 text-foreground text-sm"
+                  className="whitespace-nowrap hidden md:block hover:underline cursor-pointer hover:underline-offset-4 text-foreground text-sm font-medium"
                   scroll
                 >
                   Community Plans
                 </Link>
 
                 <FeedbackSheet />
-                <ThemeDropdown />
                 <UserButton afterSignOutUrl="/" />
               </div>
             </SignedIn>

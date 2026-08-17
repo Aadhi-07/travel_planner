@@ -17,7 +17,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Loader2, MessageSquarePlus, Wand2, MapPin, ArrowDown } from "lucide-react";
+import { Loader2, MessageSquarePlus, Wand2, MapPin, ArrowDown, ArrowUpDown } from "lucide-react";
 import { generatePlanAction } from "@/lib/actions/generateplanAction";
 import PlacesAutoComplete from "@/components/PlacesAutoComplete";
 
@@ -63,6 +63,14 @@ const NewPlanForm = ({
 
   const originVal = form.watch("originPlace");
   const destVal = form.watch("placeName");
+
+  const handleSwapLocations = () => {
+    const currentOrigin = form.getValues("originPlace");
+    const currentDest = form.getValues("placeName");
+    form.setValue("originPlace", currentDest || "", { shouldValidate: true });
+    form.setValue("placeName", currentOrigin || "", { shouldValidate: true });
+  };
+
 
   const validateLocations = () => {
     let isValid = true;
@@ -146,16 +154,27 @@ const NewPlanForm = ({
             )}
           />
 
-          {/* Visual Route Separator */}
-          <div className="flex items-center justify-center text-xs text-slate-400 gap-2 py-0.5">
+          {/* Visual Route Separator with Swap Button */}
+          <div className="flex items-center justify-between text-xs text-slate-400 gap-2 py-1">
             <div className="h-px bg-slate-800 flex-1"></div>
-            <span className="flex items-center gap-1 font-sans text-[11px] bg-slate-800/80 px-2 py-0.5 rounded-full text-amber-300">
-              <span>{originVal || "From"}</span>
-              <ArrowDown className="w-3 h-3 text-orange-400" />
-              <span>{destVal || "To"}</span>
-            </span>
+            <div className="flex items-center gap-2">
+              <span className="flex items-center gap-1 font-sans text-[11px] bg-slate-800/80 border border-slate-700/60 px-2.5 py-1 rounded-full text-amber-300">
+                <span className="max-w-[100px] truncate">{originVal || "From"}</span>
+                <ArrowDown className="w-3 h-3 text-orange-400 shrink-0" />
+                <span className="max-w-[100px] truncate">{destVal || "To"}</span>
+              </span>
+              <button
+                type="button"
+                onClick={handleSwapLocations}
+                className="p-1.5 rounded-full bg-slate-800 hover:bg-slate-700 text-orange-400 hover:text-amber-300 transition-colors border border-slate-700/80 shadow-sm group"
+                title="Swap starting location & destination"
+              >
+                <ArrowUpDown className="w-3.5 h-3.5 transition-transform group-hover:rotate-180 duration-300" />
+              </button>
+            </div>
             <div className="h-px bg-slate-800 flex-1"></div>
           </div>
+
 
           {/* TO FIELD */}
           <FormField

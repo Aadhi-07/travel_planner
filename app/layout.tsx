@@ -14,26 +14,26 @@ const inter = Montserrat_Alternates({ weight: "500", subsets: ["cyrillic"] });
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.travelplannerai.site"),
   title: {
-    default: "Travel Planner AI - Your Smart Travel Planner",
-    template: "%s | Travel Planner AI - Your Smart Travel Planner",
+    default: "Journo - Your Smart AI Travel Companion",
+    template: "%s | Journo - Your Smart AI Travel Companion",
   },
   description:
-    "Travel Planner AI provides intelligent travel suggestions, personalized itineraries, and seamless trip planning. Plan your perfect trip with ease.",
+    "Journo provides intelligent travel suggestions, personalized itineraries, and seamless trip planning. Plan your perfect trip with ease.",
   keywords:
-    "travel planner, AI travel planner, smart travel, travel suggestions, destination insights, personalized itineraries, trip planning, travel tips, vacation planning",
+    "Journo, travel planner, AI travel planner, smart travel, travel suggestions, destination insights, personalized itineraries, trip planning",
   openGraph: {
-    title: "Travel Planner AI - Your Smart Travel Planner",
+    title: "Journo - Your Smart AI Travel Companion",
     description:
-      "Travel Planner AI provides intelligent travel suggestions, personalized itineraries, and seamless trip planning. Plan your perfect trip with ease.",
+      "Journo provides intelligent travel suggestions, personalized itineraries, and seamless trip planning. Plan your perfect trip with ease.",
     url: "https://www.travelplannerai.site",
     type: "website",
-    siteName: "TravelPlannerAI",
+    siteName: "Journo",
     images: [
       {
         url: "opengraph-image.png",
         width: 1200,
         height: 630,
-        alt: "Travel Planner AI",
+        alt: "Journo AI Travel Planner",
       },
     ],
   },

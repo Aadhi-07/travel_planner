@@ -9,8 +9,7 @@ import PlanComboBox from "@/components/plan/PlanComboBox";
 import { navlinks } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 import useAuth from "@/hooks/useAuth";
-import { MapPinIcon } from "lucide-react";
-import { ThemeDropdown } from "@/components/ThemeDropdown";
+import { Compass } from "lucide-react";
 import FeedbackSheet from "@/components/common/FeedbackSheet";
 
 
@@ -36,30 +35,26 @@ const Header = () => {
           <div className="hidden md:flex gap-10 items-center justify-start flex-1">
             <Link href={isAuthenticated ? "/dashboard" : "/"}>
               <div className="flex gap-2 justify-center items-center">
-                <MapPinIcon className="h-8 w-8 text-[#3B82F6]" />
-                <div className="flex flex-col leading-5 font-bold text-xl text-[#171717]">
-                  <span>Travel</span>
-                  <span>
-                    Planner
-                    <span className="text-[#3B82F6] ml-0.5">AI</span>
-                  </span>
-                </div>
+                <Compass className="h-8 w-8 text-[#c86d51]" />
+                <span className="font-extrabold text-2xl tracking-tight text-[#36271c]">
+                  Journo
+                </span>
               </div>
             </Link>
           </div>
           <div className="hidden md:flex items-center flex-1 justify-center">
-            <ul className="flex gap-8 items-center text-sm font-medium text-[#171717]">
+            <ul className="flex gap-8 items-center text-sm font-semibold text-[#36271c]">
               {isCurrentPathHome && (
                 <>
                   {navlinks.map((link) => (
                     <li
                       key={link.id}
-                      className="hover:text-[#3B82F6] transition-colors cursor-pointer"
+                      className="hover:text-[#c86d51] transition-colors cursor-pointer"
                     >
                       <Link href={`/#${link.id}`}>{link.text}</Link>
                     </li>
                   ))}
-                  <li className="hover:text-[#3B82F6] transition-colors cursor-pointer">
+                  <li className="hover:text-[#c86d51] transition-colors cursor-pointer">
                     <Link href="dashboard" scroll>
                       Dashboard
                     </Link>
@@ -75,19 +70,17 @@ const Header = () => {
               isAuthenticated={isAuthenticated}
             />
           </div>
-          <div className="flex gap-4 justify-end items-center flex-1">
+          <div className="flex gap-3 justify-end items-center flex-1">
             <SignedOut>
-              <ThemeDropdown />
               <SignInButton mode="redirect" redirectUrl="/dashboard" />
             </SignedOut>
             <SignedIn>
-              <div className="flex justify-center items-center gap-2">
+              <div className="flex justify-center items-center gap-3">
                 {!isCurrentPathDashboard && !isCurrentPathHome && (
                   <PlanComboBox />
                 )}
 
                 <FeedbackSheet />
-                <ThemeDropdown />
                 <UserButton afterSignOutUrl="/" />
               </div>
             </SignedIn>

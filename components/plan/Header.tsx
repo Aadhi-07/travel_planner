@@ -5,7 +5,6 @@ import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import { Loading } from "@/components/shared/Loading";
 import PlanComboBox from "@/components/plan/PlanComboBox";
 import { cn } from "@/lib/utils";
-import { ThemeDropdown } from "@/components/ThemeDropdown";
 import FeedbackSheet from "@/components/common/FeedbackSheet";
 import Logo from "@/components/common/Logo";
 import MobileMenu from "@/components/plan/MobileMenu";
@@ -58,18 +57,15 @@ const Header = ({ isPublic }: { isPublic: boolean }) => {
             <MobileMenu isPublic={isPublic} />
           </div>
 
-          <div className="flex gap-4 justify-end items-center flex-1">
+          <div className="flex gap-3 justify-end items-center flex-1">
             <SignedOut>
-              <ThemeDropdown />
               <SignInButton mode="redirect" redirectUrl="/dashboard" />
             </SignedOut>
             <SignedIn>
-              <div className="flex justify-center items-center gap-2">
+              <div className="flex justify-center items-center gap-3">
                 <PlanComboBox />
 
-
                 <FeedbackSheet />
-                <ThemeDropdown />
                 <UserButton afterSignOutUrl="/" />
               </div>
             </SignedIn>

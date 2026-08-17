@@ -178,24 +178,30 @@ const Plan = ({ planId }: PlanProps) => {
         allowEdit={true}
       />
       {!isLoading && (
-        <div className="fixed bottom-10 right-10 z-50 flex gap-3 print:hidden">
+        <div className="fixed bottom-6 right-6 md:bottom-8 md:right-8 z-50 flex items-center gap-2 p-1.5 rounded-full bg-background/80 backdrop-blur-md border border-border/80 shadow-2xl print:hidden transition-all duration-300 hover:border-blue-500/50">
           <Button
-            className="rounded-full w-14 h-14 shadow-xl bg-amber-600 hover:bg-amber-500 text-white"
+            size="sm"
+            className="rounded-full px-4 py-2 gap-2 bg-amber-600 hover:bg-amber-500 text-white shadow-md transition-all hover:scale-105"
             onClick={() => downloadICalFile(plan)}
-            title="Add to Calendar / Export iCal"
+            title="Export to Calendar (.ics)"
           >
-            <Calendar className="w-6 h-6" />
+            <Calendar className="w-4 h-4" />
+            <span className="hidden sm:inline text-xs font-semibold">Export Calendar</span>
           </Button>
+
           <Button
-            className="rounded-full w-14 h-14 shadow-xl bg-blue-600 hover:bg-blue-500 text-white"
+            size="sm"
+            className="rounded-full px-4 py-2 gap-2 bg-blue-600 hover:bg-blue-500 text-white shadow-md transition-all hover:scale-105"
             onClick={() => window.print()}
-            title="Export to PDF"
+            title="Print / Save as PDF"
           >
-            <Printer className="w-6 h-6" />
+            <Printer className="w-4 h-4" />
+            <span className="hidden sm:inline text-xs font-semibold">Export PDF</span>
           </Button>
         </div>
       )}
     </section>
+
   );
 };
 

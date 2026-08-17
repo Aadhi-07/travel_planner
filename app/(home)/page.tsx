@@ -1,21 +1,16 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion, useMotionValue, useTransform, animate, AnimatePresence } from "framer-motion";
+import { motion, useMotionValue, useTransform, animate } from "framer-motion";
 import Link from "next/link";
 import { Plane } from "lucide-react";
 import { InteractiveHoverButton } from "@/components/magicui/interactive-hover-button";
 import TravelHero from "@/components/home/TravelHero";
-import { AnimatedListDemo } from "@/components/animated-list";
 import { cn } from "@/lib/utils";
-import { useMediaQuery } from "@/hooks/useMediaQuery";
 
 export default function Home() {
-  const [step, setStep] = useState(0); // 0: old logo, 1: arc+plane, 2: rutugo logo, 3: text
+  const [step, setStep] = useState(0); // 0: initial, 1: arc+plane, 2: logo, 3: text/CTA
   const progress = useMotionValue(0);
-  const [showSecond, setShowSecond] = useState(false);
-  const isMobile = useMediaQuery('(max-width: 768px)');
-
 
   const arcCenterX = 490;
   const arcCenterY = 390;
@@ -33,29 +28,20 @@ export default function Home() {
 
   // Animation sequence control
   useEffect(() => {
-    // Step 0: Show old logo, after 700ms go to step 1
     if (step === 0) {
-      const t = setTimeout(() => setStep(1), 700);
+      const t = setTimeout(() => setStep(1), 500);
       return () => clearTimeout(t);
     }
-    // Step 1: Animate arc+plane, after 2.5s go to step 2
     if (step === 1) {
       const controls = animate(progress, 1, {
         duration: 2,
         ease: "easeInOut",
-        bounceStiffness: 100,
         onComplete: () => setStep(2),
       });
       return () => controls.stop();
     }
-    // Step 2: Show Rutugo logo, after 600ms go to step 3
     if (step === 2) {
-      const t = setTimeout(() => setStep(3), 600);
-      return () => clearTimeout(t);
-    }
-    if (step === 3) {
-      // Wait for the hero's entrance animation to finish, then show second article
-      const t = setTimeout(() => setShowSecond(true), 1200); // adjust timing as needed
+      const t = setTimeout(() => setStep(3), 500);
       return () => clearTimeout(t);
     }
   }, [step]);
@@ -63,8 +49,8 @@ export default function Home() {
   const arcPath = "M 120 400 A 380 380 0 0 1 880 400";
 
   return (
-    <div className="relative min-h-screen overflow-hidden">
-      {/* Background video */}
+    <div className="relative w-full h-[calc(100vh-4rem)] overflow-hidden">
+      {/* Background illustration / video - full bleed edge-to-edge */}
       <video
         autoPlay
         muted
@@ -74,33 +60,24 @@ export default function Home() {
         className="absolute inset-0 w-full h-full object-cover z-0 pointer-events-none"
       />
 
-      {/* EXISTING CONTENT — DO NOT CHANGE */}
-      <div className="relative z-10">
+      {/* Main Hero Content Container */}
+      <div className="relative z-10 w-full h-full flex flex-col items-center justify-center">
         <motion.section
-          className={`flex flex-col md:flex-row w-full h-screen gap-5 md:gap-1 transition-all duration-700 ${showSecond ? 'md:justify-between' : 'md:justify-center'
-            }`}
+          className="flex flex-col items-center justify-center w-full h-full relative"
           layout
         >
           <motion.article
             layout
-            className={cn(`relative flex flex-col items-center justify-center overflow-hidden`, {
-              'md:w-[100vw]': !showSecond,
-              'md:w-[75vw]': showSecond,
-            })}
-            style={{
-              transition: "width 0.7s cubic-bezier(0.4,0,0.2,1)",
-            }}
+            className="relative flex flex-col items-center justify-center w-full h-full overflow-hidden"
           >
-
-            {/* Arc and logos */}
+            {/* Dotted Arc and Plane Icon */}
             <svg
               viewBox="0 0 1000 500"
               className="pointer-events-none absolute top-0 left-0 w-full h-full"
             >
-              {/* Dotted Arc - fade in with plane */}
               <motion.path
                 d={arcPath}
-                stroke="#444"
+                stroke="#8c6d58"
                 strokeWidth="2"
                 fill="none"
                 strokeDasharray="8 10"
@@ -108,29 +85,7 @@ export default function Home() {
                 animate={{ opacity: step >= 1 ? 1 : 0 }}
                 transition={{ duration: 0.5 }}
               />
-              {/* Old Logo (left) - fade in */}
-              <motion.image
-                href="/logo.png"
-                x="45"
-                y="350"
-                width="200"
-                height="200"
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: step >= 0 ? 1 : 0, scale: step >= 0 ? 1 : 0.8 }}
-                transition={{ duration: 0.6 }}
-              />
-              {/* New Logo (right) - fade in after plane animation */}
-              <motion.image
-                href="/rutugo-logo.png"
-                x="775"
-                y="350"
-                width="200"
-                height="200"
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: step >= 2 ? 1 : 0, scale: step >= 2 ? 1 : 0.8 }}
-                transition={{ duration: 0.6 }}
-              />
-              {/* Animated Plane Icon moving along the arc - only show during step 1 and after */}
+              {/* Animated Plane Icon moving along the arc - step 1 and after */}
               {step >= 1 && (
                 <motion.g
                   style={{
@@ -142,67 +97,40 @@ export default function Home() {
                   animate={{ opacity: 1 }}
                   transition={{ duration: 0.3 }}
                 >
-                  <Plane className="text-transparent fill-blue-500" height={24} width={24} />
+                  <Plane className="text-transparent fill-[#c86d51]" height={24} width={24} />
                 </motion.g>
               )}
             </svg>
 
-            {/* Main Content below the arc */}
-
+            {/* Main Centerpiece Content */}
             <motion.div
-              className="h-2/3 md:w-2/3 w-full relative z-10 flex flex-col items-center justify-center"
+              className="h-2/3 md:w-3/4 w-full relative z-10 flex flex-col items-center justify-center mx-auto"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: step >= 3 ? 1 : 0, y: step >= 3 ? 0 : 30 }}
               transition={{ duration: 0.7 }}
             >
-              <div className="max-h-[70vh] max-w-[70vw] w-full h-full flex items-center justify-center mx-auto">
+              <div className="max-h-[75vh] max-w-[80vw] w-full h-full flex items-center justify-center mx-auto">
                 <TravelHero />
               </div>
             </motion.div>
+
+            {/* Centered CTA Button */}
             <motion.div
-              className="hidden md:flex absolute bottom-0 z-10 w-full h-full px-6 py-16 flex-col items-center justify-end -mt-10 p-5"
+              className="absolute bottom-12 z-20 flex flex-col items-center justify-center p-5"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: step >= 3 ? 1 : 0, y: step >= 3 ? 0 : 30 }}
               transition={{ duration: 0.7 }}
             >
               <Link href="/dashboard">
-                <InteractiveHoverButton className="border-2 border-blue-500 shadow-xl">
-                  Get Started
+                <InteractiveHoverButton className="border-2 border-[#b55c41] shadow-2xl shadow-[#c86d51]/30">
+                  Get Started with Journo
                 </InteractiveHoverButton>
               </Link>
             </motion.div>
           </motion.article>
-          <motion.article className="flex justify-center items-center">
-            <motion.div
-              className="md:hidden flex "
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: step >= 3 ? 1 : 0, y: step >= 3 ? 0 : 30 }}
-              transition={{ duration: 0.7 }}
-            >
-              <Link href="/dashboard">
-                <InteractiveHoverButton className="border-2 border-blue-500 shadow-xl">
-                  Get Started
-                </InteractiveHoverButton>
-              </Link>
-            </motion.div>
-          </motion.article>
-          <AnimatePresence>
-            {showSecond && (
-              <motion.article
-                layout
-                initial={{ opacity: 0, x: 100 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: 100 }}
-                transition={{ duration: 0.7 }}
-                className="flex justify-center items-center md:w-[25vw] w-full h-full flex-col"
-              >
-                <h2 className="text-2xl font-semibold text-[#171717] mb-2">What's new in Rutugo?</h2>
-                <AnimatedListDemo />
-              </motion.article>
-            )}
-          </AnimatePresence>
         </motion.section>
       </div>
     </div>
   );
 }
+

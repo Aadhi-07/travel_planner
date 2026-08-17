@@ -18,7 +18,7 @@ export const GeneratePlanDrawerWithDialog = () => {
   const dialogTriggerBtn = (
     <Button
       aria-label="open dialog button for Create Travel Plan"
-      className="bg-blue-500 hover:bg-blue-600 text-white flex gap-1 justify-center items-center"
+      className="bg-[#c86d51] hover:bg-[#b55c41] text-[#fdfbf7] shadow-md shadow-[#c86d51]/20 flex gap-2 justify-center items-center font-semibold"
     >
       <Backpack className="h-4 w-4" />
       <span>Create Travel Plan</span>
