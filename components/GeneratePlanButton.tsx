@@ -9,8 +9,8 @@ const GeneratePlanButton = () => {
       aria-label="generate plan"
       onClick={openSignInPopupOrDirect}
       variant="default"
-      className="bg-blue-500 text-white
-                 hover:bg-blue-700
+      className="bg-[#c86d51] text-[#fdfbf7]
+                 hover:bg-[#b55c41]
                   text-sm
                   font-semibold rounded-3xl"
     >

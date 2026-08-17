@@ -183,7 +183,7 @@ const NewPlanForm = ({
             render={({ field }) => (
               <FormItem>
                 <FormLabel className="text-xs font-semibold text-slate-300 flex items-center gap-1.5 uppercase tracking-wider">
-                  <MapPin className="w-3.5 h-3.5 text-blue-400" />
+                  <MapPin className="w-3.5 h-3.5 text-[#c86d51]" />
                   To (Destination)
                 </FormLabel>
                 <FormControl>
@@ -296,7 +296,7 @@ const NewPlanForm = ({
             disabled={
               pendingEmptyPlan || pendingAIPlan
             }
-            className={`bg-blue-600 text-white hover:bg-blue-700 w-full ${pendingAIPlan ? 'opacity-50' : ''}`}
+            className={`bg-[#c86d51] text-white hover:bg-[#b55c41] w-full ${pendingAIPlan ? 'opacity-50' : ''}`}
           >
             {pendingEmptyPlan ? (
               <div className="flex gap-1 justify-center items-center">
@@ -318,7 +318,7 @@ const NewPlanForm = ({
             disabled={
               pendingAIPlan || pendingEmptyPlan
             }
-            className={`bg-indigo-600 text-white hover:bg-indigo-700 w-full group ${pendingEmptyPlan ? 'opacity-50' : ''}`}
+            className={`bg-[#b55c41] text-white hover:bg-[#a34f37] w-full group ${pendingEmptyPlan ? 'opacity-50' : ''}`}
           >
             {pendingAIPlan ? (
               <div className="flex gap-1 justify-center items-center">

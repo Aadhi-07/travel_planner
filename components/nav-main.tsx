@@ -271,7 +271,7 @@ const CompanionControl = ({
         <label
           key={companion.id}
           className="flex-1 p-1 opacity-50 hover:opacity-100 dark:opacity-40 dark:hover:opacity-100 
-                  has-[:checked]:bg-blue-50 has-[:checked]:text-foreground has-[:checked]:opacity-100
+                  has-[:checked]:bg-[#c86d51]/15 has-[:checked]:text-foreground has-[:checked]:opacity-100
                   dark:has-[:checked]:opacity-100
                   duration-200 transition-all ease-in-out
                   cursor-pointer select-none

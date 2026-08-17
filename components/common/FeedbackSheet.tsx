@@ -127,7 +127,7 @@ export default function FeedbackSheet() {
             <Button
               type="submit"
               variant="outline"
-              className="bg-blue-500 hover:bg-blue-700 text-white hover:text-white"
+              className="bg-[#c86d51] hover:bg-[#b55c41] text-white hover:text-white"
             >
               Submit Feedback
             </Button>

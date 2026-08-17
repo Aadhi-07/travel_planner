@@ -45,14 +45,9 @@ const MobileMenu = () => {
       >
         <div className="flex justify-between p-2">
           <Link href="/">
-            <div
-              className="flex flex-col leading-5
-                             font-bold text-md p-1"
-            >
-              <span>Travel</span>
-              <span>
-                Planner
-                <span className="text-blue-500 ml-0.5">AI</span>
+            <div className="flex gap-2 justify-center items-center p-1">
+              <span className="font-extrabold text-xl tracking-tight text-[#36271c]">
+                Journo
               </span>
             </div>
           </Link>

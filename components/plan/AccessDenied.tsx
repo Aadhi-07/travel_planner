@@ -51,9 +51,9 @@ function AccessDenied() {
           <path
             d="M801.81836,318.08691h-184a9.01015,9.01015,0,0,1-9-9v-44a9.01016,9.01016,0,0,1,9-9h184a9.01016,9.01016,0,0,1,9,9v44A9.01015,9.01015,0,0,1,801.81836,318.08691Z"
             transform="translate(-276.18187 -133.91309)"
-            fill="#6c63ff"
+            fill="#c86d51"
           />
-          <circle cx="433.63626" cy="105.17383" r="20" fill="#6c63ff" />
+          <circle cx="433.63626" cy="105.17383" r="20" fill="#c86d51" />
           <circle cx="433.63626" cy="105.17383" r="12.18187" fill="#fff" />
         </svg>
         <div className="flex flex-col gap-3 max-w-[80%]">
@@ -61,7 +61,7 @@ function AccessDenied() {
           <p>The Plan you are trying to access either does not belong to you or does not exist.</p>
           <div className="text-md text-muted-foreground max-w-[90%]">
             Return to your{" "}
-            <Link href="/dashboard" className="text-blue-500 hover:underline hover:text-blue-700">
+            <Link href="/dashboard" className="text-[#c86d51] hover:underline hover:text-[#b55c41] font-semibold">
               Dashboard
             </Link>{" "}
             or use the navigation switcher at the top to view your existing travel plans.

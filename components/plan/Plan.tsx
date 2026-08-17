@@ -178,7 +178,7 @@ const Plan = ({ planId }: PlanProps) => {
         allowEdit={true}
       />
       {!isLoading && (
-        <div className="fixed bottom-6 right-6 md:bottom-8 md:right-8 z-50 flex items-center gap-2 p-1.5 rounded-full bg-background/80 backdrop-blur-md border border-border/80 shadow-2xl print:hidden transition-all duration-300 hover:border-blue-500/50">
+        <div className="fixed bottom-6 right-6 md:bottom-8 md:right-8 z-50 flex items-center gap-2 p-1.5 rounded-full bg-background/80 backdrop-blur-md border border-border/80 shadow-2xl print:hidden transition-all duration-300 hover:border-[#c86d51]/50">
           <Button
             size="sm"
             className="rounded-full px-4 py-2 gap-2 bg-amber-600 hover:bg-amber-500 text-white shadow-md transition-all hover:scale-105"
@@ -191,7 +191,7 @@ const Plan = ({ planId }: PlanProps) => {
 
           <Button
             size="sm"
-            className="rounded-full px-4 py-2 gap-2 bg-blue-600 hover:bg-blue-500 text-white shadow-md transition-all hover:scale-105"
+            className="rounded-full px-4 py-2 gap-2 bg-[#c86d51] hover:bg-[#b55c41] text-white shadow-md transition-all hover:scale-105"
             onClick={() => window.print()}
             title="Print / Save as PDF"
           >

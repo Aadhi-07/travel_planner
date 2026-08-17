@@ -22,7 +22,7 @@ export default async function PublicPlans() {
                      px-5 md:px-0 py-10 md:py-0"
     >
       <div className="flex flex-col gap-2 w-full">
-        <h2 className="text-blue-500 text-center text-lg font-bold tracking-wide">
+        <h2 className="text-[#c86d51] text-center text-lg font-bold tracking-wide">
           Our Community's Favorite Trips
         </h2>
 

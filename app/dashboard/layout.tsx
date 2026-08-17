@@ -37,7 +37,7 @@ export default function RootLayout({
   return (
     <>
       <Header />
-      <main className="flex min-h-[calc(100svh-4rem)] flex-col items-center bg-blue-50/40">
+      <main className="flex min-h-[calc(100svh-4rem)] flex-col items-center bg-background">
         {children}
       </main>
     </>

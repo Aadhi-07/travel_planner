@@ -63,7 +63,7 @@ const ItineraryDayForm = ({planId, setOpen}: ItineraryDayFormProps) => {
       <Tabs defaultValue="morning" className="" onValueChange={handleTabChange}>
         <TabsList>
           <TabsTrigger value="morning">
-            <Sunrise className="w-4 h-4 text-blue-500 mr-2" /> Morning
+            <Sunrise className="w-4 h-4 text-[#c86d51] mr-2" /> Morning
           </TabsTrigger>
           <TabsTrigger value="afternoon">
             <Sun className="w-4 h-4 text-yellow-500 mr-2" /> Afternoon

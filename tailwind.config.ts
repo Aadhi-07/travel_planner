@@ -19,6 +19,15 @@ const config = {
     },
     extend: {
       colors: {
+        brand: {
+          DEFAULT: "#c86d51",
+          hover: "#b55c41",
+          amber: "#d97724",
+          sepia: "#4a3b32",
+          ink: "#36271c",
+          parchment: "#fdfbf7",
+          light: "#fbf3ef",
+        },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

@@ -136,7 +136,7 @@ const LocationAutoComplete = ({planId, addNewPlaceToTopPlaces}: LocationAutoComp
                 border-b 
                 flex justify-between items-center
                 hover:bg-muted hover:rounded-lg
-                px-1 py-2 text-sm text-blue-500 font-semibold"
+                px-1 py-2 text-sm text-[#c86d51] font-semibold"
                 onClick={(e) => hadleSelectCustomItem(e, searchQuery)}
               >
                 Use "{searchQuery}"

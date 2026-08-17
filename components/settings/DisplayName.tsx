@@ -139,7 +139,7 @@ const DisplayName = () => {
             variant="outline"
             disabled={shouldGetDisabled}
             className={cn(
-              "text-white hover:text-white bg-blue-500 hover:bg-blue-700"
+              "text-white hover:text-white bg-[#c86d51] hover:bg-[#b55c41]"
             )}
           >
             {isSending ? (

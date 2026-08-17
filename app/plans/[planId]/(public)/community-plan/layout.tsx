@@ -43,7 +43,7 @@ export default function RootLayout({
   return (
     <>
       <Header isPublic={true} />
-      <main className="flex min-h-[calc(100svh-4rem)] flex-col items-center bg-blue-50/40 dark:bg-background">
+      <main className="flex min-h-[calc(100svh-4rem)] flex-col items-center bg-background">
         <PlanLayoutContent planId={params.planId} isPublic={true}>
           {children}
         </PlanLayoutContent>

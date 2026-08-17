@@ -16,7 +16,7 @@ const HowItWorks = () => {
     >
       <div className="flex flex-col gap-20">
         <section className="flex flex-col gap-5">
-          <h2 className="text-blue-500 text-center text-lg font-bold tracking-wide">
+          <h2 className="text-[#c86d51] text-center text-lg font-bold tracking-wide">
             How it works?
           </h2>
           <h3 className="text-foreground text-center md:text-3xl text-xl font-bold ">
@@ -27,20 +27,20 @@ const HowItWorks = () => {
           <Item
             text="Login"
             description="Log in to start your journey."
-            icon={<LogIn className="h-8 w-8 text-blue-500 dark:text-foreground" />}
+            icon={<LogIn className="h-8 w-8 text-[#c86d51] dark:text-foreground" />}
             className="rotate-[202deg] hidden md:block"
           />
           <Item
             text="Key in the travel idea"
             description="Tell us about your ideal trip"
-            icon={<Lightbulb className="h-8 w-8 text-blue-500 dark:text-foreground" />}
+            icon={<Lightbulb className="h-8 w-8 text-[#c86d51] dark:text-foreground" />}
             className="transform rotate-[350deg] -scale-x-100 hidden md:block"
           />
 
           <Item
             text="Get AI Plan"
             description="Get your AI-driven tailored travel plan"
-            icon={<PlaneTakeoff className="h-8 w-8 text-blue-500 dark:text-foreground" />}
+            icon={<PlaneTakeoff className="h-8 w-8 text-[#c86d51] dark:text-foreground" />}
             className="hidden"
           />
         </section>

@@ -34,15 +34,8 @@ const MobileMenu = () => {
         variant="link"
         className="text-lg"
       >
-        <div
-          className="flex flex-col leading-5
-                             font-bold text-md text-left"
-        >
-          <span>Travel</span>
-          <span>
-            Planner
-            <span className="text-blue-500 ml-0.5">AI</span>
-          </span>
+        <div className="flex gap-2 items-center font-extrabold text-xl text-[#36271c]">
+          <span>Journo</span>
         </div>
       </Button>
       <aside
@@ -55,15 +48,8 @@ const MobileMenu = () => {
       >
         <div className="flex justify-between p-2">
           <Link href="/">
-            <div
-              className="flex flex-col leading-5
-                             font-bold text-md p-1"
-            >
-              <span>Travel</span>
-              <span>
-                Planner
-                <span className="text-blue-500 ml-0.5">AI</span>
-              </span>
+            <div className="flex gap-2 items-center font-extrabold text-xl text-[#36271c] p-1">
+              <span>Journo</span>
             </div>
           </Link>
           <Button

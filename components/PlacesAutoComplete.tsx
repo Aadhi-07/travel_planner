@@ -125,7 +125,7 @@ const PlacesAutoComplete = ({
             ))}
             {field.value && field.value.length >= 2 && (
               <li
-                className="cursor-pointer flex justify-between items-center hover:bg-muted hover:rounded-lg px-3 py-2 text-xs text-blue-500 font-semibold"
+                className="cursor-pointer flex justify-between items-center hover:bg-muted hover:rounded-lg px-3 py-2 text-xs text-[#c86d51] font-semibold"
                 onClick={(e) => handleSelectItem(e, field.value)}
               >
                 Use "{field.value}"

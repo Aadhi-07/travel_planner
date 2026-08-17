@@ -17,8 +17,8 @@ const Banner = () => {
           className="font-bold lg:text-7xl md:text-5xl text-4xl font-sans
       text-left w-full"
         >
-          Uncover the <br /> <span className="text-blue-500">AI</span> Travel{" "}
-          <span className="text-blue-500">Plan</span>
+          Uncover the <br /> <span className="text-[#c86d51]">AI</span> Travel{" "}
+          <span className="text-[#c86d51]">Plan</span>
         </h1>
 
         <div className="mt-5 lg:mt-10 rounded-md w-full text-left lg:text-lg md:text-md text-base">
@@ -27,7 +27,7 @@ const Banner = () => {
             <span className="text-center ">Imagine telling your travel planner,</span>
           </div>
           <div className="p-2">
-            <p className="text-blue-500 font-bold tracking-wide lg:text-md md:text-base text-sm">
+            <p className="text-[#c86d51] font-bold tracking-wide lg:text-md md:text-base text-sm">
               'Weekend escape to a vibrant city, <br className="lg:hidden" />
               with mid-range budget in summer.'
             </p>

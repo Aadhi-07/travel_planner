@@ -20,7 +20,7 @@ const ImageSection = ({
     >
       {isLoading ? (
         <div
-          className="bg-gradient-to-r from-blue-200 to-cyan-200 h-[200px] 
+          className="bg-gradient-to-r from-[#c86d51]/20 to-[#d97724]/20 h-[200px] 
                         md:h-[400px] flex items-end gap-5
                         shadow-md ring-1 ring-muted rounded-sm"
         >

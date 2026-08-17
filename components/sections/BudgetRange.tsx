@@ -117,7 +117,7 @@ const BudgetRange = ({ data, plan, isLoading }: BudgetRangeProps) => {
           </div>
 
           <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-slate-800/80 font-medium">
-            <Calendar className="w-3.5 h-3.5 text-blue-400" />
+            <Calendar className="w-3.5 h-3.5 text-[#c86d51]" />
             <span>
               {days} Days / {nights} Night{nights > 1 ? "s" : ""}
             </span>

@@ -90,7 +90,7 @@ export default function InvitePlanView({ planId }: { planId: string }) {
           </div>
 
           <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-950/80 border border-slate-800 font-medium">
-            <Calendar className="w-4 h-4 text-blue-400" />
+            <Calendar className="w-4 h-4 text-[#c86d51]" />
             <span>{days} Days / {nights} Night{nights > 1 ? "s" : ""}</span>
           </div>
 

@@ -91,7 +91,7 @@ const PlanMetaData = ({
         `scroll-mt-20 
                 flex gap-1 w-full justify-between items-center
                 rounded-full 
-                bg-blue-50/40 dark:bg-black dark:border-2 dark:border-border
+                bg-card border border-border/40 dark:bg-black dark:border-2 dark:border-border
                 py-2 px-3 shadow-lg`,
         {
           "animate-pulse": isLoading,
@@ -236,7 +236,7 @@ const PublishPlan = ({
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
           <Button
-            className="flex gap-1 justify-center items-center bg-blue-500 hover:bg-blue-600"
+            className="flex gap-1 justify-center items-center bg-[#c86d51] hover:bg-[#b55c41] text-[#fdfbf7]"
             size="sm"
             onClick={onClickChangePrivacy}
           >
